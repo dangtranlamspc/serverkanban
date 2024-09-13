@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -9,6 +10,19 @@ const dbURL = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATA
 
 const app = express()
 
-app.listen(PORT, () => {
-    console.log(`Server is starting at http://localhost:${PORT}`)
+const connectDB = async () => {
+    try {
+        await mongoose.connect(dbURL)
+        console.log(`Connect to db success`)
+    } catch (error) {
+        console.log(`Can not connect to db ${error}`)
+    }
+};
+
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server is starting at http://localhost:${PORT}`)
+    })
+}).catch((error) => {
+    console.log(error)
 })
