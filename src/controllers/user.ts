@@ -56,10 +56,15 @@ const login = async (req : any, res : any) => {
 
     try {
         
-        const user:any = await UserModel.findOne({email})
+        const user : any = await UserModel.findOne({email})
 
         if (!user) {
-            throw new Error('Tài khoản này không tồn tại')
+            throw new Error('Email này không tồn tại')
+        }
+
+        const isMatchPassword = await bcrypt.compare(password, user.password) 
+        if (!isMatchPassword) {
+            throw new Error('Đăng nhập thất bại vui lòng kiểm tra lại email hoặc password')
         }
 
         delete user._doc.password;
