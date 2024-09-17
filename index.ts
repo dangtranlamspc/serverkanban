@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 import userRouter from './src/routers/user'
 import cors from 'cors'
+import storageRouter from './src/routers/storage'
+import { verifyToken } from './src/middlewares/verifyToken';
 
 dotenv.config();
 
@@ -16,6 +18,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/auth', userRouter);
+app.use(verifyToken);
+app.use('/storage', storageRouter);
 
 const connectDB = async () => {
     try {
