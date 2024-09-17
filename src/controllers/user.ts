@@ -102,7 +102,7 @@ const loginWithGoogle = async (req : any, res : any) => {
             delete user._doc.password;
         
             user.token =  res.status(200).json({
-                message : 'Register',
+                message : 'Login succesfully',
                 data : {
                     ...user._doc, 
                     token : await getAccesstoken({
@@ -126,7 +126,7 @@ const loginWithGoogle = async (req : any, res : any) => {
             delete newUser._doc.password;
             
             newUser.token =  res.status(200).json({
-                message : 'Register',
+                message : 'Login succesfully',
                 data : {
                     ...newUser._doc, 
                     token : await getAccesstoken({
