@@ -2,6 +2,7 @@ import UserModel from "../models/UserModel"
 import dotenv from 'dotenv'
 import bcrypt from 'bcrypt'
 import { getAccesstoken } from "../utils/getAccesstoken";
+import { generatorRandomText } from "../utils/generatorRandomText";
 dotenv.config();
 
 
@@ -88,4 +89,59 @@ const login = async (req : any, res : any) => {
     }
 }
 
-export {register, login};
+const loginWithGoogle = async (req : any, res : any) => {
+    const body = req.body
+
+    const {email, name } = body;
+
+    try {
+        
+        const user : any = await UserModel.findOne({email})
+
+        if (user) {
+            delete user._doc.password;
+        
+            user.token =  res.status(200).json({
+                message : 'Register',
+                data : {
+                    ...user._doc, 
+                    token : await getAccesstoken({
+                        _id : user._id,
+                        email : user.email,
+                        rule : 1,
+                    })
+                }
+            });
+        }else{
+            const salt = await bcrypt.genSalt(10)
+
+            const haspassword = await bcrypt.hash(generatorRandomText(6), salt)
+    
+            body.password = haspassword
+    
+            const newUser : any  = new UserModel(body)
+    
+            await newUser.save();
+    
+            delete newUser._doc.password;
+            
+            newUser.token =  res.status(200).json({
+                message : 'Register',
+                data : {
+                    ...newUser._doc, 
+                    token : await getAccesstoken({
+                        _id : newUser._id,
+                        email : newUser.email,
+                        rule : 1,
+                    })
+                }
+            });
+        }
+    } catch (error : any) {
+        res.status(404).json({
+            message : error.message
+        })
+    }
+}
+
+export {register, login,loginWithGoogle};
