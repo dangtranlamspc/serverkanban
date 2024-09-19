@@ -12,7 +12,7 @@ const supplierScheme = new Schema({
 	},
 	price: Number,
 	contact: String,
-	isTaking: {
+	isTalking: {
 		type: Number,
 		default: 0,
 		enum: [0, 1],
