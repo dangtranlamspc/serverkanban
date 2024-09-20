@@ -1,7 +1,8 @@
+import { supplierForm } from "../forms/supplier";
 import SupplierModel from "../models/SupplierModel";
 
 const getSuppliers = async (req: any, res: any) => {
-    const {pageSize, page} = req.query
+    const {pageSize, page} = req.query;
 	try {
         const skip = (page - 1) * pageSize;
 		const items = await SupplierModel.find({isDeleted : false})
@@ -72,4 +73,25 @@ const removeSupplier = async (req : any, res :any) => {
     }
 }
 
-export {getSuppliers, addNew , updateSupplier,removeSupplier};
+const getForms = async (req: any, res: any) => {
+	try {
+		const form = {
+			title: 'Supplier',
+			layout: 'horizontal',
+			labelCol: 6,
+			wrapperCol: 18,
+			formItems: supplierForm,
+		};
+
+		res.status(200).json({
+			message: '',
+			data: form,
+		});
+	} catch (error: any) {
+		res.status(400).json({
+			message: error.message,
+		});
+	}
+};
+
+export {getSuppliers, addNew , updateSupplier,removeSupplier, getForms};
