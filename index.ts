@@ -6,6 +6,7 @@ import cors from 'cors'
 import storageRouter from './src/routers/storage'
 import { verifyToken } from './src/middlewares/verifyToken';
 import supplierRoter from './src/routers/supplier'
+import productRouter from './src/routers/productRouter';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use('/auth', userRouter);
 app.use(verifyToken);
 app.use('/storage', storageRouter);
 app.use('/supplier', supplierRoter)
+app.use('/products', productRouter);
 
 const connectDB = async () => {
     try {

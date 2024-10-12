@@ -5,20 +5,11 @@ const scheme = new Schema({
 		type: String,
 		required: true,
 	},
-	slug: String,
-	description: String,
-	categories: [String],
-	supplier: {
-		require: true,
+	parentId: String,
+	slug: {
 		type: String,
 	},
-	content: String,
-	expiryDate: {
-		type: Date,
-	},
-	images: {
-		type: [String],
-	},
+	description: String,
 	createdAt: {
 		type: Date,
 		default: Date.now,
@@ -33,5 +24,5 @@ const scheme = new Schema({
 	},
 });
 
-const ProductModel = mongoose.model('products', scheme);
-export default ProductModel;
+const CategoryModel = mongoose.model('categories', scheme);
+export default CategoryModel;
