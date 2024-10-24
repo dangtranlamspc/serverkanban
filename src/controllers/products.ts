@@ -276,7 +276,7 @@ const getProductDetail = async (req: any, res: any) => {
 				// product : item,
 				// subProducts,
 				subProducts,
-				item,
+				product : item,
 			},
 			// data : item,
 		});
