@@ -273,9 +273,10 @@ const getProductDetail = async (req: any, res: any) => {
 		res.status(200).json({
 			message: 'Products',
 			data: {
-				product: item,
+				product : item,
 				subProducts,
 			},
+			// data : item,
 		});
 	} catch (error: any) {
 		res.status(404).json({

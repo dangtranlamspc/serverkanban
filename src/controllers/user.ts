@@ -98,17 +98,21 @@ const loginWithGoogle = async (req : any, res : any) => {
         
         const user : any = await UserModel.findOne({email})
 
-        if (user) {
-            delete user._doc.password;
+        if (user) { 
+            await UserModel.findByIdAndUpdate(user._id, body);
+
+            const newUser : any = await UserModel.findById(user._id);
+
+            delete newUser._doc.password;
         
-            user.token =  res.status(200).json({
+            res.status(200).json({
                 message : 'Login succesfully',
                 data : {
-                    ...user._doc, 
+                    ...newUser._doc, 
                     token : await getAccesstoken({
-                        _id : user._id,
-                        email : user.email,
-                        rule : 1,
+                        _id : newUser._id,
+                        email : newUser.email,
+                        rule : newUser.rule ?? 1,
                     })
                 }
             });
@@ -126,7 +130,7 @@ const loginWithGoogle = async (req : any, res : any) => {
             delete newUser._doc.password;
             
             newUser.token =  res.status(200).json({
-                message : 'Login succesfully',
+                message : 'Register succesfully',
                 data : {
                     ...newUser._doc, 
                     token : await getAccesstoken({
@@ -139,7 +143,7 @@ const loginWithGoogle = async (req : any, res : any) => {
         }
     } catch (error : any) {
         res.status(404).json({
-            message : error.message
+            message : error.message,
         })
     }
 }
