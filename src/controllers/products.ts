@@ -273,8 +273,10 @@ const getProductDetail = async (req: any, res: any) => {
 		res.status(200).json({
 			message: 'Products',
 			data: {
-				product : item,
+				// product : item,
+				// subProducts,
 				subProducts,
+				item,
 			},
 			// data : item,
 		});
