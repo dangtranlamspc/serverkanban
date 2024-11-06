@@ -1,12 +1,14 @@
-export const generatorRandomText = (num : number ) => {
-    const charaters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let text = '';
+export const generatorRandomText = (num: number) => {
+	const characters =
+		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	let text = '';
 
-    for (let index = 0; index < charaters.length;index++) {
-        if (text.length <= (num ? num : 10)) {
-            const str = charaters[(Math.random() * charaters.length)];
-            text += str;
-        }
-    }
-    return text.toLocaleUpperCase();
+	for (let index = 0; index < characters.length; index++) {
+		if (text.length < (num ? num : 10)) {
+			const str = characters[Math.floor(Math.random() * characters.length)];
+			text += str;
+		}
+	}
+
+	return text.toLocaleUpperCase();
 };

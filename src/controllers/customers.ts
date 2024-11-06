@@ -1,16 +1,41 @@
 import CustomerModel from "../models/CustomersModel";
 import bcrypt from 'bcrypt'
 import { getAccesstoken } from "../utils/getAccesstoken";
+import { generatorRandomText } from "../utils/generatorRandomText";
+
+const getVerifiCode = async (req : any, res : any) => {
+	// const { id, code } = req.query;
+	const body = req.body
+	const {email} = req.body
+	try {
+		const customer = await CustomerModel.findOne({email})
+		if (customer) {
+			throw new Error('Email đã tồn tại')
+		}
+
+		const code = generatorRandomText(6)
+		console.log(code)
+
+		res.status(200).json({
+			message: 'Verify successfully!!!',
+			data: []
+		});
+		
+	} catch (error : any) {
+		res.status(404).json({
+			message: error.message,
+		});
+	}
+	
+}
+
 
 const create = async (req: any, res: any) => {
 	const body = req.body;
 
 	try {
 
-		const customer = await CustomerModel.findOne({email : body.email})
-		if (customer) {
-			throw new Error('Email đã tồn tại')
-		}
+		
 
 		const salt = await bcrypt.genSalt(10)
 
@@ -40,4 +65,4 @@ const create = async (req: any, res: any) => {
 	}
 };
 
-export { create };
+export { create , getVerifiCode};
