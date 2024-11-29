@@ -31,6 +31,9 @@ const getVerifiCode = async (req : any, res : any) => {
 			rule: 1,
 		});
 
+		delete customer._doc.password;
+		delete customer._doc.verifyCode;
+
 		res.status(200).json({
 			message: 'Verify successfully!!!',
 			data: {
@@ -108,6 +111,8 @@ const create = async (req: any, res: any) => {
 			html: `<h1>Mã xác minh${code}</h1>`, // html body
 		});
 		
+		console.log(code);
+
 		res.status(200).json({
 			message: 'Register successfully!!!',
 			data: newCustomer,
