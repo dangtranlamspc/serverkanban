@@ -7,7 +7,8 @@ import storageRouter from './src/routers/storage'
 import { verifyToken } from './src/middlewares/verifyToken';
 import supplierRoter from './src/routers/supplier'
 import productRouter from './src/routers/productRouter';
-import customerRouter from './src/routers/customerRouter'
+import customerRouter from './src/routers/customerRouter';
+import promotionRouter from './src/routers/promotionRouter'
 
 dotenv.config();
 
@@ -20,10 +21,20 @@ app.use(express.json());
 
 app.use(cors());
 
+app.use((req, res, next) => {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+	res.header('Access-Control-Allow-Headers', 'Content-Type');
+	next();
+});
+
 app.use('/auth', userRouter);
 app.use('/customers', customerRouter)
 app.use('/products', productRouter);
+app.use('/promotion', promotionRouter)
+
 app.use(verifyToken);
+
 app.use('/storage', storageRouter);
 app.use('/supplier', supplierRoter)
 
