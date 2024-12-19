@@ -40,6 +40,6 @@ const scheme = new Schema(
 	{ timestamps: true }
 );
 
-const PromotionModel = mongoose.model('promotions', scheme);
+const PromotionModel = mongoose.model('promotion', scheme);
 
 export default PromotionModel;

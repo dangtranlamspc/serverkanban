@@ -31,10 +31,9 @@ app.use((req, res, next) => {
 app.use('/auth', userRouter);
 app.use('/customers', customerRouter)
 app.use('/products', productRouter);
-app.use('/promotion', promotionRouter)
 
 app.use(verifyToken);
-
+app.use('/promotion',promotionRouter)
 app.use('/storage', storageRouter);
 app.use('/supplier', supplierRoter)
 
