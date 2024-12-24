@@ -5,6 +5,7 @@ import {
 	addSubProduct,
 	deleteCategories,
 	filterProducts,
+	getBestSellers,
 	getCategories,
 	getCategoryDetail,
 	getFilterValues,
@@ -27,7 +28,7 @@ router.get('/get-categories', getCategories);
 
 router.get('/categories/detail', getCategoryDetail);
 router.get('/get-filter-values', getFilterValues);
-
+router.get('/get-best-seller', getBestSellers)
 
 router.use(verifyToken);
 

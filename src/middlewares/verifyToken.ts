@@ -23,7 +23,7 @@ export const verifyToken = (req : any, res : any, next : any) => {
 
         // }
 
-        req._id = verify._id
+        // req._id = verify._id
 
         next();
     } catch (error : any) {
