@@ -9,7 +9,7 @@ import supplierRoter from './src/routers/supplier'
 import productRouter from './src/routers/productRouter';
 import customerRouter from './src/routers/customerRouter';
 import promotionRouter from './src/routers/promotionRouter'
-import cartRouter from './src/routers/cartRouter';
+import cartRouter from './src/routers/cartRouter'
 
 dotenv.config();
 
@@ -37,9 +37,8 @@ app.use('/promotion',promotionRouter)
 app.use(verifyToken);
 
 app.use('/storage', storageRouter);
-app.use('/supplier', supplierRoter)
-app.use('carts', cartRouter)
-
+app.use('/supplier', supplierRoter);
+app.use('/carts', cartRouter)
 
 const connectDB = async () => {
     try {
